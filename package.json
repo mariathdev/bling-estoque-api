@@ -2,17 +2,19 @@
   "name": "bling-estoque-api",
   "version": "1.0.0",
   "type": "module",
-  "description": "API middleware para consulta de estoque Bling v3 - integração BotConversa",
-  "main": "src/server.js",
+  "description": "API middleware para consulta de estoque Bling v3 e integracao BotConversa",
+  "main": "src/main.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "start": "node src/main.js",
+    "dev": "node --watch src/main.js",
+    "oauth:url": "node src/bin/oauth.js",
+    "oauth:exchange": "node src/bin/oauth.js"
   },
   "dependencies": {
     "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "express-rate-limit": "^7.3.1",
-    "dotenv": "^16.4.5"
+    "express-rate-limit": "^7.3.1"
   },
   "engines": {
     "node": ">=18.0.0"

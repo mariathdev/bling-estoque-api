@@ -16,11 +16,11 @@ Usuario (WhatsApp/Instagram)
 Node.js + Express
 Middleware inteligente
          |
-         | (3) GET /productos?nome=...
-         | (4) GET /estoques/{id}
+         | (3) GET /produtos?nome=...
+         | (4) GET /estoques/saldos?idsProdutos[]=...
          v
 [Bling API v3]             <- fonte de verdade
-https://bling.com.br/Api/v3
+https://api.bling.com.br/Api/v3
 ```
 
 ---
@@ -38,7 +38,7 @@ https://bling.com.br/Api/v3
 ```
 BLING_CLIENT_ID          = <Client ID do seu app Bling>
 BLING_CLIENT_SECRET      = <Client Secret do seu app Bling>
-BLING_ACCESS_TOKEN       = <access_token atual>
+BLING_ACCESS_TOKEN       = <access_token atual, opcional em ambiente local>
 BLING_REFRESH_TOKEN      = <refresh_token atual>
 API_SECRET_KEY           = <chave forte que voce inventa, ex: xK9mP2qR7nL4vZ8w>
 ```
@@ -52,9 +52,26 @@ API_SECRET_KEY           = <chave forte que voce inventa, ex: xK9mP2qR7nL4vZ8w>
 ### Renovacao de tokens
 
 O access_token do Bling expira em 1 hora. A API renova automaticamente
-usando o refresh_token. Quando renovar, ela loga os novos tokens no
-console do Railway. Se quiser garantia maxima, atualize manualmente as
-env vars com os novos tokens apos cada reinicio.
+usando o refresh_token. Em ambiente local, os tokens renovados sao salvos
+em `.tokens.json`, que ja esta no `.gitignore`.
+
+Se o Bling retornar `invalid_grant`, o refresh_token expirou ou foi
+revogado. Gere uma nova autorizacao:
+
+```bash
+npm run oauth:url
+```
+
+Abra a URL gerada, autorize o app e copie o parametro `code` do
+redirecionamento. Depois troque o code por tokens:
+
+```bash
+npm run oauth:exchange -- SEU_CODE
+```
+
+Em Railway/Render, lembre que o arquivo `.tokens.json` pode nao persistir
+entre reinicios. Atualize as variaveis do ambiente com o refresh_token novo
+quando fizer uma nova autorizacao.
 
 ---
 
@@ -214,14 +231,15 @@ NUNCA invente informacoes de estoque. Sempre consulte a funcao antes de responde
 3. Anote Client ID e Client Secret
 4. Acesse a URL de autorizacao:
    ```
-   https://www.bling.com.br/Api/v3/oauth/authorize?response_type=code&client_id=SEU_CLIENT_ID&state=random123
+     https://www.bling.com.br/Api/v3/oauth/authorize?response_type=code&client_id=SEU_CLIENT_ID&state=random123
    ```
 5. Autorize o acesso
 6. Bling redireciona para sua redirect_uri com `?code=AUTHORIZATION_CODE`
 7. Troque o code por tokens:
    ```bash
-   curl -X POST https://www.bling.com.br/Api/v3/oauth/token \
+   curl -X POST https://api.bling.com.br/Api/v3/oauth/token \
      -H "Authorization: Basic $(echo -n 'CLIENT_ID:CLIENT_SECRET' | base64)" \
+     -H "enable-jwt: 1" \
      -H "Content-Type: application/x-www-form-urlencoded" \
      -d "grant_type=authorization_code&code=SEU_CODE"
    ```
@@ -272,8 +290,8 @@ Cliente pergunta:
          2. Busca Bling: GET /produtos?nome=CONJUNTO ELOISA
          3. Rankeia resultados por score de match
          4. Score 1.00: "CONJUNTO ELOISA NEW COR:PRETO;TAMANHO:P"
-         5. Busca estoque: GET /estoques/16627173128
-         6. saldoFisico: 5
+         5. Busca estoque: GET /estoques/saldos?idsProdutos[]=16627173128
+         6. saldoFisicoTotal: 5
                     |
                     v
          Resposta ao GPT:
