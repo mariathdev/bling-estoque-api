@@ -1,0 +1,42 @@
+<svg width="1280" height="360" viewBox="0 0 1280 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Bling 7 and BotConversa Integration Banner</title>
+  <desc id="desc">A dark green gradient banner for the Bling stock API middleware connected to BotConversa.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#021410"/>
+      <stop offset="0.48" stop-color="#06251d"/>
+      <stop offset="1" stop-color="#001b15"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="152" y1="76" x2="1102" y2="294" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00D084"/>
+      <stop offset="1" stop-color="#00C853"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0 0 0 0 0 0.82 0 0 0 0 0.48 0 0 0 0.35 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="360" rx="36" fill="url(#bg)"/>
+  <circle cx="1090" cy="78" r="160" fill="#00D084" opacity="0.08"/>
+  <circle cx="155" cy="312" r="190" fill="#00C853" opacity="0.08"/>
+  <path d="M96 296C244 188 398 168 558 236C718 304 884 300 1184 96" stroke="url(#accent)" stroke-width="2" opacity="0.24"/>
+
+  <g filter="url(#glow)">
+    <text x="86" y="164" fill="#00D084" font-family="Inter, Arial, sans-serif" font-size="96" font-weight="900" letter-spacing="0">bling</text>
+    <text x="363" y="164" fill="#00D084" font-family="Inter, Arial, sans-serif" font-size="122" font-weight="900" transform="rotate(12 363 164)">7</text>
+  </g>
+
+  <g transform="translate(736 74)">
+    <rect x="0" y="0" width="178" height="178" rx="48" fill="#00C853"/>
+    <path d="M56 45C56 35.6112 63.6112 28 73 28C82.3888 28 90 35.6112 90 45V94C90 94 105 76 137 76H148C175.614 76 198 98.3858 198 126C198 153.614 175.614 176 148 176H101C74.4903 176 53 154.51 53 128V45H56Z" fill="white" transform="scale(.72) translate(16 4)"/>
+    <ellipse cx="79" cy="112" rx="13" ry="13" fill="#00C853"/>
+    <ellipse cx="119" cy="112" rx="13" ry="13" fill="#00C853"/>
+    <path d="M101 139C101 134.582 104.582 131 109 131H138L103 151C102 149 101 145 101 139Z" fill="#00C853"/>
+  </g>
+
+  <text x="946" y="142" fill="#00C853" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="800">BotConversa</text>
+  <text x="88" y="240" fill="#F5FFFB" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800">Real-time stock middleware for conversational commerce</text>
+  <text x="90" y="284" fill="#B8D8CC" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500">Query Bling stock, protect access with API keys, and power BotConversa replies with live inventory data.</text>
+</svg>
